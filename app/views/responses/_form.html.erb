@@ -1,0 +1,20 @@
+<%= form_with(model: response) do |form| %>
+  <div class="field">
+    <%= form.label :questionnaire_id, "Questionnaire" %>
+    <%= form.collection_select :questionnaire_id, Questionnaire.all, :id, :name, prompt: "Select a Questionnaire" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :question_id, "Question" %>
+    <%= form.collection_select :question_id, Question.where(questionnaire_id: response.questionnaire_id), :id, :name, prompt: "Select a Question" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :response_text, "Response" %>
+    <%= form.text_area :response_text %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

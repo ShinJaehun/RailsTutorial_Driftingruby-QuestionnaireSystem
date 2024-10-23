@@ -1,0 +1,28 @@
+<h1>Questionnaire</h1>
+
+<table class='table'>
+  <thead>
+    <th>Name</th>
+    
+    <th colspan=3>Actions</th>
+  </thead>
+  <tbody>
+    <% @questionnaires.each do |questionnaire| %>
+      <tr>
+        <td><%= questionnaire.name %></td>
+      
+        <td><%= link_to "Show", questionnaire_path(questionnaire) %></td>
+        <td><%= link_to "Edit", edit_questionnaire_path(questionnaire) %></td>
+        <td>
+          <%= link_to "Delete", questionnaire_path(questionnaire),
+            "data-turbo-method": :delete,
+            "data-turbo-confirm": "Are you sure?" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to "New questionnaire", new_questionnaire_path %>

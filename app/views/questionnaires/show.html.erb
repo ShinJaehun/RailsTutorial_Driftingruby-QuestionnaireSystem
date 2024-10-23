@@ -1,0 +1,39 @@
+<h1><%= @questionnaire.name %></h1>
+
+<%= form_with url: save_responses_questionnaire_path(@questionnaire), method: :post do |form| %>
+
+  <% @questionnaire.questions.each do |question| %>
+    <h2><%= question.name %></h2>
+
+    <% case question.question_type %>
+    <% when 'single_choice' %>
+      <% question.answers.each do |answer| %>
+        <p>
+          <%= radio_button_tag "responses[#{question.id}]", answer.id %>
+          <%= label_tag "responses[#{question.id}]", answer.name %>
+        </p>
+      <% end %>
+    <% when 'multiple_choice' %>
+      <% question.answers.each do |answer| %>
+        <p>
+          <%= check_box_tag "responses[#{question.id}][]", answer.id %>
+          <%= label_tag "responses[#{question.id}][]", answer.name %>
+        </p>
+      <% end %>
+    <% when 'long_answer' %>
+      <%= text_area_tag "responses[#{question.id}]"%>
+    <% end %>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+<% end %>
+
+<!--
+
+이런 방식으로 문제를 해결해야 하는 것인가?
+https://github.com/jerico-digiteer/questionnaire/blob/main/app/views/questionnaires/show.html.slim
+
+-->

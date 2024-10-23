@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
-  root to: 'welcome#index'
+  resources :responses do
+    post 'save_responses', on: :member
+  end
+  # resources :questionnaires
+  resources :questionnaires do
+    post 'save_responses', on: :member
+  end
+  
+  root "questionnaires#index"
+
+  # root to: 'welcome#index'
   get 'welcome/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
